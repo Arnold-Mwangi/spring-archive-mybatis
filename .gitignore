@@ -35,3 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/google_oauth2/oauth_client.json

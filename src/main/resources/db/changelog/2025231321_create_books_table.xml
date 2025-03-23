@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2025231321" author="kirigwi">
+        <preConditions onError="HALT" onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="Books"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="Books">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="isbn" type="VARCHAR(20)">
+                <constraints unique="true"/>
+            </column>
+            <column name="publishedDate" type="DATE"/>
+            <column name="thumbnailUrl" type="VARCHAR(500)"/>
+            <column name="language" type="VARCHAR(20)"/>
+            <column name="categoryId" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_books_categories" references="BookCategories(id)"/>
+            </column>
+            <column name="createdAt" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2025231435" author="kirigwi">
+        <preConditions>
+            <columnExists tableName="Books" columnName="publishedDate"/>
+        </preConditions>
+
+        <modifyDataType tableName="Books" columnName="publishedDate" newDataType="datetime2"/>
+    </changeSet>
+</databaseChangeLog>

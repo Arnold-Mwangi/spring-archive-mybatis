@@ -1,0 +1,19 @@
+<nav th:fragment="navbar(userRole)" class="navbar">
+    <div class="logo">📚 Spring Archive</div>
+
+    <ul class="nav-links">
+        <li><a href="/catalog">Catalog</a></li>
+
+        <!-- Show Only for Admin -->
+        <li th:if="${userRole == 'ROLE_ADMIN'}"><a href="/admin/dashboard">Admin Dashboard</a></li>
+
+        <li th:if="${userRole == 'ROLE_USER'}"><a href="/user/user-home">User Dashboard</a></li>
+
+        <!-- Show Only for Librarian -->
+        <li th:if="${userRole == 'ROLE_LIBRARIAN'}"><a href="librarian/librarian-panel">Librarian Panel</a></li>
+
+        <!-- User Profile & Logout -->
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>

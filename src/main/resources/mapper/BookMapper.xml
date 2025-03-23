@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kirigwi.springarchive.library.repositories.BookRepository">
+
+    <resultMap id="BookResultMap" type="com.kirigwi.springarchive.library.entities.Book">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="author" column="author"/>
+        <result property="isbn" column="isbn"/>
+        <result property="publishedDate" column="publishedDate"/>
+        <result property="thumbnailUrl" column="thumbnailUrl"/>
+        <result property="language" column="language"/>
+        <result property="createdAt" column="createdAt"/>
+
+        <!-- Map the Category object -->
+        <association property="category" javaType="com.kirigwi.springarchive.library.entities.BookCategory">
+            <id property="id" column="categoryId"/>
+            <result property="name" column="categoryName"/>
+            <result property="createdAt" column="categoryCreatedAt"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllBooks" resultMap="BookResultMap">
+        SELECT
+            b.*,
+            c.id AS categoryId,
+            c.name AS categoryName
+        FROM Books b
+                 JOIN BookCategories c ON b.categoryId = c.id
+        ORDER BY b.createdAt DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+
+    </select>
+
+</mapper>

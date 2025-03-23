@@ -1,0 +1,16 @@
+<div th:fragment="sidebar(userRole)" class="sidebar">
+    <ul>
+        <li><a href="/home">🏠 Home</a></li>
+
+        <!-- User Options /my-books -->
+        <li th:if="${userRole == 'ROLE_USER'}"><a href="#">📚 My Books</a></li>
+
+        <!-- Librarian Options /librarian/requests -->
+        <li th:if="${userRole == 'ROLE_LIBRARIAN'}"><a href="#">✅ Approve Requests</a></li>
+
+        <!-- Admin Options /admin/users -->
+        <li th:if="${userRole == 'ROLE_ADMIN'}"><a href="#">👥 Manage Users</a></li>
+        <!--        /admin/books-->
+        <li th:if="${userRole == 'ROLE_ADMIN'}"><a href="#">📖 Manage Books</a></li>
+    </ul>
+</div>

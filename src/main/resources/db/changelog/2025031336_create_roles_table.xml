@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2025031336" author="kirigwi">
+        <preConditions>
+            <not>
+                <tableExists tableName="Roles"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="roleName" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="VARCHAR(225)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="202503222112" author="kirigwi">
+        <sql>
+            INSERT INTO roles (roleName, description)
+            SELECT 'USER', 'Regular user with basic access'
+                WHERE NOT EXISTS (SELECT 1 FROM roles WHERE roleName = 'USER');
+
+            INSERT INTO roles (roleName, description)
+            SELECT 'ADMIN', 'Administrator with full access'
+                WHERE NOT EXISTS (SELECT 1 FROM roles WHERE roleName = 'ADMIN');
+
+            INSERT INTO roles (roleName, description)
+            SELECT 'LIBRARIAN', 'Manages book catalog and user requests'
+                WHERE NOT EXISTS (SELECT 1 FROM roles WHERE roleName = 'LIBRARIAN');
+        </sql>
+    </changeSet>
+    <changeSet id="2025222118" author="kirigwi">
+        <preConditions>
+            <tableExists tableName="roles"/>
+        </preConditions>
+        <renameTable oldTableName="roles" newTableName="Roles"/>
+    </changeSet>
+</databaseChangeLog>

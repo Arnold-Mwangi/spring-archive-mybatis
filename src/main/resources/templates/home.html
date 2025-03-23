@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home - Spring Archive</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="fragments/_navbar :: navbar(${userRole})"></div>
+
+<div class="main-container">
+  <!-- Sidebar -->
+  <div th:replace="fragments/_sidebar :: sidebar(${userRole})"></div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h1>Welcome to Your Dashboard</h1>
+    <p th:if="${userRole == 'ROLE_USER'}">Explore and borrow books easily.</p>
+    <p th:if="${userRole == 'ROLE_LIBRARIAN'}">Manage book requests efficiently.</p>
+    <p th:if="${userRole == 'ROLE_ADMIN'}">Administer users and book catalog.</p>
+
+    <!-- Book List -->
+    <div th:replace="fragments/_book-list :: bookList"></div>
+  </div>
+</div>
+
+</body>
+</html>

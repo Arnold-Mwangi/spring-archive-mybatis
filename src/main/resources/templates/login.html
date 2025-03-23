@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Spring Archive</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+
+</head>
+<body>
+<div class="login-container">
+    <h2>Login to Spring Archive</h2>
+
+    <!-- Show error message if login fails -->
+    <div th:if="${param.error}" class="error">
+        Invalid email or password. Try again.
+    </div>
+
+    <div th:if="${param.logout}" class="success">
+        You have been logged out successfully.
+    </div>
+
+    <!-- 🔐 Login Form for JWT Authentication -->
+    <form th:action="@{/perform_login}" method="post">
+
+    <div>
+            <label>Username:</label>
+            <input type="text" name="username" required>
+        </div>
+
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Or login with:</p>
+
+    <!-- 🔑 Google OAuth2 Login Button -->
+    <a th:href="@{/oauth2/authorization/google}" class="google-btn">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8NShIi5FqDvqmTuUyQbn5SN3o_jiKIejHaA_pePmUe5hXuSGtQi0WfHVgVJN5wdyOSw&usqp=CAU" alt="Google Logo"> Login with Google
+    </a>
+
+    <p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
+</div>
+</body>
+</html>

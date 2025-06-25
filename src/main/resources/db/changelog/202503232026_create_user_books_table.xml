@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="202503232026" author="kirigwi">
+        <preConditions onFail="MARK_RAN" onError="HALT">
+            <not>
+                <tableExists tableName="UserBooks"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="UserBooks">
+            <column name="userId" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_userbooks_users" references="Users(id)"/>
+            </column>
+            <column name="bookId" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_userbooks_books" references="Books(id)"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="UserBooks" columnNames="userId, bookId"/>
+
+    </changeSet>
+</databaseChangeLog>

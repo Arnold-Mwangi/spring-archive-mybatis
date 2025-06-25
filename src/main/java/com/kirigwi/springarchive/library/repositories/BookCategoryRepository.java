@@ -28,8 +28,11 @@ public interface BookCategoryRepository {
     @Select("SELECT * FROM BookCategories WHERE id = #{id}")
     BookCategory getCategoryById(@Param("id") Long id);
 
-    @Select("SELECT * FROM BookCategories")
-    List<BookCategory> getAllCategories();
+    @Select("SELECT * FROM BookCategories ORDER BY id OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY")
+    List<BookCategory> getCategoriesWithPagination(@Param("offset") int offset, @Param("size") int size);
+
+    @Select("SELECT COUNT(*) FROM BookCategories")
+    int getTotalCategories();
 
     // Retrieve Category by Name
     @Select("SELECT * FROM BookCategories WHERE name = #{name}")

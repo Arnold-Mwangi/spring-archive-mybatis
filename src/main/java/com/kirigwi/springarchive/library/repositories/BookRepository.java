@@ -27,7 +27,14 @@ public interface BookRepository {
     })
     Book getBookById(@Param("id") Long id);
 
-    List<Book> getAllBooks(@Param("limit") int limit, @Param("offset") int offset);
+    @Select("SELECT * FROM Books WHERE isbn = #{isbn}")
+    @Results({
+            @Result(property = "category", column = "category_id",
+                    one = @One(select = "com.kirigwi.springarchive.library.repositories.BookCategoryRepository.getCategoryById"))
+    })
+    Book getBookByIsbn(@Param("isbn") String isbn);
 
+
+    List<Book> getAllBooks(@Param("limit") int limit, @Param("offset") int offset);
 
 }

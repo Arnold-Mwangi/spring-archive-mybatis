@@ -8,4 +8,5 @@
     <include file="db/changelog/202503221333_create_users_table.xml"/>
     <include file="db/changelog/2025231319_create_categories_table.xml"/>
     <include file="db/changelog/2025231321_create_books_table.xml"/>
+    <include file="db/changelog/202503232026_create_user_books_table.xml"/>
 </databaseChangeLog>

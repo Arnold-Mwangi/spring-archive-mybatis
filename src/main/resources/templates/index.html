@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Welcome to BookVerse</title>
+    <style>
+        :root {
+            --purple: #8a7df8;
+            --orange: #dc6418;
+            --teal: #55ffff;
+            --pink: #eb0278;
+            --dark-blue: #1c1c3c;
+            --mid-blue: #2c2c5c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--dark-blue);
+            color: #ffffff;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--purple);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--orange);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #ffffff;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            color: var(--teal);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .book-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px 20px 20px;
+            animation: floatUp 1s ease forwards;
+        }
+
+        .book-card {
+            background-color: var(--mid-blue);
+            border: 2px solid var(--orange);
+            border-radius: 12px;
+            width: 220px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .book-card:nth-child(1) { animation-delay: 0.2s; }
+        .book-card:nth-child(2) { animation-delay: 0.4s; }
+        .book-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .book-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 0 15px var(--teal);
+        }
+
+        .book-card img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid var(--teal);
+        }
+
+        .book-card h3 {
+            margin-top: 12px;
+            font-size: 1.1rem;
+            color: var(--pink);
+        }
+
+        .cta {
+            margin: 20px auto 40px;
+            text-align: center;
+        }
+
+        .cta a {
+            background-color: var(--pink);
+            color: white;
+            padding: 14px 36px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(235, 2, 120, 0.5);
+            animation: pulse 2s infinite ease-in-out;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta a:hover {
+            background-color: var(--orange);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--teal);
+            border-top: 2px solid var(--orange);
+            background-color: var(--mid-blue);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(235, 2, 120, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(235, 2, 120, 1); }
+        }
+
+        @media (max-width: 600px) {
+            .book-card {
+                width: 90%;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .cta a {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📚 Welcome to BookVerse</h1>
+    <p>Explore a world of stories curated just for you</p>
+</div>
+
+<main>
+    <div class="book-grid">
+        <div class="book-card">
+            <img src="https://covers.openlibrary.org/b/id/10532109-L.jpg" alt="Atomic Habits Cover">
+            <h3>Atomic Habits</h3>
+        </div>
+        <div class="book-card">
+            <img src="https://covers.openlibrary.org/b/id/11048958-L.jpg" alt="The Alchemist Cover">
+            <h3>The Alchemist</h3>
+        </div>
+        <div class="book-card">
+            <img src="https://covers.openlibrary.org/b/id/10251267-L.jpg" alt="Sapiens Cover">
+            <h3>Sapiens: A Brief History</h3>
+        </div>
+    </div>
+    <div class="cta">
+        <a th:href="${#authentication.authenticated} ? '/home' : '/login'">Enter Library</a>
+    </div>
+
+</main>
+
+<footer>
+    &copy; 2025 BookVerse — Read with purpose.
+</footer>
+
+</body>
+</html>
